@@ -11,11 +11,18 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
+app.use(async (req, res, next) => {
+    try {
+        await connectToDatabase();
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/grades", gradeRoutes);
-
-connectToDatabase();
 
 if (!process.env.VERCEL) {
     app.listen(process.env.PORT || 5000, () => {
