@@ -26,7 +26,7 @@ const Login = () => {
     setError('')
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password })
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, { email, password })
 
       if (response.status === 200) {
         localStorage.setItem('authToken', response.data.token)
