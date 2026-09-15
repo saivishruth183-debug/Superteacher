@@ -58,13 +58,13 @@ const AdminAddCourse = () => {
           </div>
 
           <div>
-            <label className="text-sm font-medium text-[#5a6572]">Short badge (max 3 chars)</label>
+            <label className="text-sm font-medium text-[#5a6572]">Short badge (max 5 chars)</label>
             <input
               name="short"
               value={form.short}
               onChange={handleChange}
               required
-              maxLength={3}
+              maxLength={5}
               placeholder="e.g. HC"
               className="mt-1.5 w-full rounded-lg border border-[#1c2430]/15 px-3.5 py-2.5 text-sm focus:border-[#ff6b57] focus:outline-none"
             />

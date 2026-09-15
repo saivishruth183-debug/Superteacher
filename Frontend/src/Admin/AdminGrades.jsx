@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { fetchGradesByCourse, deleteGrades, uploadGradePdf, deleteGradePdf, fileUrl } from "../api/grades"
 
+const maxPdfSize = 30 * 1024 * 1024
+
 const colorMap = {
   coral: "#ff6b57",
   lime: "#8fc93a",
@@ -81,6 +83,10 @@ const AdminGradeList = () => {
 
     if (file.type !== "application/pdf") {
       setError("Only PDF files are allowed")
+      return
+    }
+    if (file.size > maxPdfSize) {
+      setError("PDF files must be 30 MB or smaller")
       return
     }
 

@@ -11,6 +11,7 @@ const colorMap = {
 }
 
 const emptyForm = { name: "", description: "" }
+const maxPdfSize = 30 * 1024 * 1024
 
 const AdminAddGrade = () => {
   const { slug } = useParams()
@@ -35,6 +36,11 @@ const AdminAddGrade = () => {
     const picked = e.target.files?.[0]
     if (picked && picked.type !== "application/pdf") {
       setError("Only PDF files are allowed")
+      e.target.value = ""
+      return
+    }
+    if (picked && picked.size > maxPdfSize) {
+      setError("PDF files must be 30 MB or smaller")
       e.target.value = ""
       return
     }

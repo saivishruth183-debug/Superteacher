@@ -19,8 +19,13 @@ const request = async (operation) => {
 export const fetchGradesByCourse = (courseSlug) =>
   request(() => gradesApi.get(`/courses/${courseSlug}/grades`))
 
-export const createGrade = (courseSlug, grade) =>
-  request(() => gradesApi.post(`/courses/${courseSlug}/grades`, grade))
+export const createGrade = (courseSlug, grade, file) => {
+  const formData = new FormData()
+  formData.append('name', grade.name)
+  formData.append('description', grade.description)
+  if (file) formData.append('pdf', file)
+  return request(() => gradesApi.post(`/courses/${courseSlug}/grades`, formData))
+}
 
 export const updateGrade = (id, grade) =>
   request(() => gradesApi.put(`/grades/${id}`, grade))
